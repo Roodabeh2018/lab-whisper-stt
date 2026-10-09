@@ -1,0 +1,9 @@
+openai
+python-dotenv
+pydub
+sounddevice
+numpy
+librosa
+matplotlib
+scipy
+ipykernel

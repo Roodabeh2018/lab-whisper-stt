@@ -1,0 +1,9 @@
+{
+  "audio_file": "project_nimbus_meeting.mp3",
+  "sample_duration_seconds": 30.0,
+  "prompt": "Project Nimbus, weekly engineering sync, Kubernetes migration, PostgreSQL latency, Q3 OKRs, Priya, Marcus, authentication.",
+  "without_prompt": "Good morning everyone. This is the weekly engineering sync for Project Nimbus. Today is Thursday, and we have four items on the agenda. The Kubernetes migration, the PostgreSQL latency issue, the Q3 OKRs, and the hiring update. Priya, do you want to start with the migration? Sure, thanks Marcus. So the Kubernetes migration is about 70% done. We moved the authentication",
+  "with_prompt": "Good morning everyone. This is the weekly engineering sync for Project Nimbus. Today is Thursday, and we have four items on the agenda. The Kubernetes migration, the PostgreSQL latency issue, the Q3 OKRs, and the hiring update. Priya, do you want to start with the migration? Sure, thanks Marcus. So the Kubernetes migration is about 70% done. We moved the authentication",
+  "identical": true,
+  "observation": "The prompted and unprompted transcripts were identical for this sample. The prompt produced no observed change. Accuracy requires comparison with the original audio."
+}

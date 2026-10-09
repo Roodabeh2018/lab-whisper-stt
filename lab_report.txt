@@ -1,0 +1,40 @@
+Whisper STT Implementation — Lab Report
+Author: Roodabeh Seif
+
+Implementation
+I used the teacher's stt.ipynb notebook as a starting point and
+added file-based transcription of project_nimbus_meeting.mp3.
+The recording is 309.20 seconds long.
+I tested basic transcription on its first 30 seconds, then
+processed the full recording in 6 chunks.
+
+Prompted vs. unprompted transcription
+I transcribed the same sample with and without a context prompt.
+The prompt included Project Nimbus, Kubernetes, PostgreSQL,
+Q3 OKRs, Priya, and Marcus. Both outputs were identical.
+The prompt produced no observed improvement in this sample.
+This does not establish perfect accuracy or mean prompts are
+never useful. Accuracy must be checked against the audio.
+
+Chunking and timestamps
+I used 60-second chunks, with a shorter final chunk.
+Each chunk was exported as mono, 16 kHz, 16-bit WAV.
+Chunking keeps individual uploads small and supports longer
+recordings. For this short recording, it demonstrated the method.
+I added each chunk's starting offset to its segment timestamps.
+The last transcribed segment ends at 308.00 seconds.
+Results were exported as timestamped text, SRT, and JSON.
+
+Challenges
+FFmpeg was initially unavailable to the notebook. After installation
+and restarting VS Code, the notebook detected it successfully.
+Fixed-duration cuts split some sentences across chunks.
+The full transcript also contains suspicious technical phrases
+that need verification by listening to the original recording.
+
+Recommendations
+Use clear audio and relevant names and technical vocabulary.
+Prefer cuts near pauses; if using overlap, remove duplicate text.
+Check transcription around chunk boundaries.
+Evaluate accuracy against a manually verified reference transcript.
+Preserve raw model outputs separately from any corrected version.

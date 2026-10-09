@@ -1,0 +1,290 @@
+{
+  "text": "Good morning everyone! This is the weekly engineering sync for Project Nimbus. Today is Thursday, and we have four items on the agenda. The Kubernetes migration, the PostgreSQL latency issue, the Q3 OKRs, and the hiring update. Priya, do you want to start with the migration? Sure, thanks Marcus! So the Kubernetes migration is about 70% done. We moved the authentication service, and the billing service to the new EKS cluster last week. The main blocker right now is the Redis cache. When we deployed it with Helm, the persistent volume claims were failing, because of a misconfigured storage class. I opened a ticket, Jira number NIM-482, and I expect it to be fixed by Tuesday. Okay, good. Do we need anything from the DevOps team? Yes. Yes, we need Thomas to approve the Terraform changes for the VPC peering. Without that, the pods in the staging namespace cannot reach the legacy database. I can review the Terraform pull request this afternoon. I saw it in GitHub yesterday, but I did not have time. Just to confirm, are we still using the T3 large instances for the worker nodes, or did we switch to Graviton? We switched to Graviton. The ARM-based instances are about 20% cheaper, and our Docker images now build for both architectures. Great. Let's move to item 2, the PostgreSQL latency issue. Thomas, what did you find? So, the P99 latency on the order endpoint went from about 80 milliseconds to almost 400 milliseconds after the release on the 12th. Ironic, ple- analyze on the slope queries and the problem is a missing composite index on the orders table on customer id and created that. Someone dropped it during the schema migration with Alembic. Ouch! Is there a fix ready? Yes. I wrote a new migration that recreates the index concurrently, so it will not lock the table. I also added a check in our CI pipeline, using pgstat statements, so we get an alert in metadog if any query goes above 200 milliseconds. That's really helpful. From the product side, customers definitely noticed. We had 11 support tickets about slow checkout in the last week, and our NPS score dropped by 3 points. Thanks, Aisha. Okay, item 3, the Q3OKRs. Aisha, can you give us the summary? Sure. We have three key results for this quarter. First, reduce checkout abandonment from 18% to 12%. We are currently at 14%, so we are on track, but not finished. Second, launch the new recommendation engine, which uses the embedding model from the data science team. That one is delayed, because the vector database, we chose Pinecone, needs a security review from the compliance team. And third, achieve SOC 2 type 2 readiness. We are about halfway there. What is the risk on the SOC 2 work? The main risk is the audit logging. We need every access to customer data to be logged and retained for one year. Right now we only keep logs in CloudWatch for 30 days. We could export the logs to S3 with a live site. policy and move them to Glacier after 90 days. That would be cheap and it would meet the retention requirement. Perfect, let's take that offline and write it up. Last item, hiring. We have two open roles, a senior back-end engineer with Go and gRPC experience and a machine learning engineer for the recommendation work. We have three candidates in the final round. Priya and Thomas, please submit your interview feedback in Greenhouse by Friday. We'll do. Yes, I will have mine done tomorrow. Great. To summarize the action items, Priya will fix the redeemed storage class issue by Tuesday. Thomas will review the Terraform pull request today and deploy the index migration. Aisha will schedule the Pinecon security review and draft the log retention plan with. And everyone, please send your greenhouse feedback by Friday. Thanks everyone, see you next week!",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.800000190734863,
+      "text": "Good morning everyone! This is the weekly engineering sync for Project Nimbus."
+    },
+    {
+      "start": 5.800000190734863,
+      "end": 9.899999618530273,
+      "text": "Today is Thursday, and we have four items on the agenda."
+    },
+    {
+      "start": 9.899999618530273,
+      "end": 18.0,
+      "text": "The Kubernetes migration, the PostgreSQL latency issue, the Q3 OKRs, and the hiring update."
+    },
+    {
+      "start": 18.0,
+      "end": 22.399999618530273,
+      "text": "Priya, do you want to start with the migration?"
+    },
+    {
+      "start": 22.399999618530273,
+      "end": 24.600000381469727,
+      "text": "Sure, thanks Marcus!"
+    },
+    {
+      "start": 24.600000381469727,
+      "end": 28.899999618530273,
+      "text": "So the Kubernetes migration is about 70% done."
+    },
+    {
+      "start": 28.899999618530273,
+      "end": 35.5,
+      "text": "We moved the authentication service, and the billing service to the new EKS cluster last week."
+    },
+    {
+      "start": 35.5,
+      "end": 38.5,
+      "text": "The main blocker right now is the Redis cache."
+    },
+    {
+      "start": 38.5,
+      "end": 46.29999923706055,
+      "text": "When we deployed it with Helm, the persistent volume claims were failing, because of a misconfigured storage class."
+    },
+    {
+      "start": 46.29999923706055,
+      "end": 54.5,
+      "text": "I opened a ticket, Jira number NIM-482, and I expect it to be fixed by Tuesday."
+    },
+    {
+      "start": 54.5,
+      "end": 59.900001525878906,
+      "text": "Okay, good. Do we need anything from the DevOps team?"
+    },
+    {
+      "start": 59.900001525878906,
+      "end": 60.900001525878906,
+      "text": "Yes."
+    },
+    {
+      "start": 60.0,
+      "end": 65.96000003814697,
+      "text": "Yes, we need Thomas to approve the Terraform changes for the VPC peering."
+    },
+    {
+      "start": 65.96000003814697,
+      "end": 72.07999992370605,
+      "text": "Without that, the pods in the staging namespace cannot reach the legacy database."
+    },
+    {
+      "start": 72.07999992370605,
+      "end": 76.04000091552734,
+      "text": "I can review the Terraform pull request this afternoon."
+    },
+    {
+      "start": 76.04000091552734,
+      "end": 80.44000053405762,
+      "text": "I saw it in GitHub yesterday, but I did not have time."
+    },
+    {
+      "start": 80.44000053405762,
+      "end": 86.31999969482422,
+      "text": "Just to confirm, are we still using the T3 large instances for the worker nodes, or did"
+    },
+    {
+      "start": 86.31999969482422,
+      "end": 89.1200008392334,
+      "text": "we switch to Graviton?"
+    },
+    {
+      "start": 89.1200008392334,
+      "end": 91.15999984741211,
+      "text": "We switched to Graviton."
+    },
+    {
+      "start": 91.15999984741211,
+      "end": 99.20000076293945,
+      "text": "The ARM-based instances are about 20% cheaper, and our Docker images now build for both architectures."
+    },
+    {
+      "start": 99.20000076293945,
+      "end": 100.20000076293945,
+      "text": "Great."
+    },
+    {
+      "start": 100.20000076293945,
+      "end": 105.52000045776367,
+      "text": "Let's move to item 2, the PostgreSQL latency issue."
+    },
+    {
+      "start": 105.52000045776367,
+      "end": 108.15999984741211,
+      "text": "Thomas, what did you find?"
+    },
+    {
+      "start": 108.15999984741211,
+      "end": 115.2400016784668,
+      "text": "So, the P99 latency on the order endpoint went from about 80 milliseconds to almost"
+    },
+    {
+      "start": 115.31999969482422,
+      "end": 119.15999984741211,
+      "text": "400 milliseconds after the release on the 12th."
+    },
+    {
+      "start": 119.15999984741211,
+      "end": 119.91999816894531,
+      "text": "Ironic, ple-"
+    },
+    {
+      "start": 120.0,
+      "end": 126.15999984741211,
+      "text": "analyze on the slope queries and the problem is a missing composite index on the orders table"
+    },
+    {
+      "start": 126.15999984741211,
+      "end": 132.7200002670288,
+      "text": "on customer id and created that. Someone dropped it during the schema migration with Alembic."
+    },
+    {
+      "start": 134.0,
+      "end": 136.1599998474121,
+      "text": "Ouch! Is there a fix ready?"
+    },
+    {
+      "start": 137.44000053405762,
+      "end": 142.47999954223633,
+      "text": "Yes. I wrote a new migration that recreates the index concurrently,"
+    },
+    {
+      "start": 142.47999954223633,
+      "end": 147.8400001525879,
+      "text": "so it will not lock the table. I also added a check in our CI pipeline,"
+    },
+    {
+      "start": 147.8400001525879,
+      "end": 155.43999862670898,
+      "text": "using pgstat statements, so we get an alert in metadog if any query goes above 200 milliseconds."
+    },
+    {
+      "start": 156.72000122070312,
+      "end": 164.31999969482422,
+      "text": "That's really helpful. From the product side, customers definitely noticed. We had 11 support"
+    },
+    {
+      "start": 164.31999969482422,
+      "end": 170.47999954223633,
+      "text": "tickets about slow checkout in the last week, and our NPS score dropped by 3 points."
+    },
+    {
+      "start": 170.47999954223633,
+      "end": 179.27999877929688,
+      "text": "Thanks, Aisha. Okay, item 3, the Q3OKRs. Aisha, can you give us the summary?"
+    },
+    {
+      "start": 180.0,
+      "end": 185.0,
+      "text": "Sure. We have three key results for this quarter."
+    },
+    {
+      "start": 185.0,
+      "end": 190.0,
+      "text": "First, reduce checkout abandonment from 18% to 12%."
+    },
+    {
+      "start": 190.0,
+      "end": 196.0,
+      "text": "We are currently at 14%, so we are on track, but not finished."
+    },
+    {
+      "start": 196.0,
+      "end": 203.0,
+      "text": "Second, launch the new recommendation engine, which uses the embedding model from the data science team."
+    },
+    {
+      "start": 203.0,
+      "end": 212.0,
+      "text": "That one is delayed, because the vector database, we chose Pinecone, needs a security review from the compliance team."
+    },
+    {
+      "start": 212.0,
+      "end": 219.0,
+      "text": "And third, achieve SOC 2 type 2 readiness. We are about halfway there."
+    },
+    {
+      "start": 219.0,
+      "end": 223.0,
+      "text": "What is the risk on the SOC 2 work?"
+    },
+    {
+      "start": 223.0,
+      "end": 231.0,
+      "text": "The main risk is the audit logging. We need every access to customer data to be logged and retained for one year."
+    },
+    {
+      "start": 231.0,
+      "end": 236.0,
+      "text": "Right now we only keep logs in CloudWatch for 30 days."
+    },
+    {
+      "start": 236.0,
+      "end": 240.0,
+      "text": "We could export the logs to S3 with a live site."
+    },
+    {
+      "start": 240.0,
+      "end": 245.80000019073486,
+      "text": "policy and move them to Glacier after 90 days. That would be cheap and it would"
+    },
+    {
+      "start": 245.80000019073486,
+      "end": 253.2799997329712,
+      "text": "meet the retention requirement. Perfect, let's take that offline and write it up."
+    },
+    {
+      "start": 253.2799997329712,
+      "end": 260.23999977111816,
+      "text": "Last item, hiring. We have two open roles, a senior back-end engineer with Go and"
+    },
+    {
+      "start": 260.23999977111816,
+      "end": 266.20000076293945,
+      "text": "gRPC experience and a machine learning engineer for the recommendation work. We"
+    },
+    {
+      "start": 266.20000076293945,
+      "end": 271.63999938964844,
+      "text": "have three candidates in the final round. Priya and Thomas, please submit your"
+    },
+    {
+      "start": 271.63999938964844,
+      "end": 278.8400001525879,
+      "text": "interview feedback in Greenhouse by Friday. We'll do. Yes, I will have mine"
+    },
+    {
+      "start": 278.8400001525879,
+      "end": 285.7200012207031,
+      "text": "done tomorrow. Great. To summarize the action items, Priya will fix the redeemed"
+    },
+    {
+      "start": 285.7200012207031,
+      "end": 291.0,
+      "text": "storage class issue by Tuesday. Thomas will review the Terraform pull request"
+    },
+    {
+      "start": 291.0,
+      "end": 296.88000106811523,
+      "text": "today and deploy the index migration. Aisha will schedule the Pinecon security"
+    },
+    {
+      "start": 296.88000106811523,
+      "end": 301.79999923706055,
+      "text": "review and draft the log retention plan with."
+    },
+    {
+      "start": 300.0,
+      "end": 305.0,
+      "text": "And everyone, please send your greenhouse feedback by Friday."
+    },
+    {
+      "start": 305.0,
+      "end": 308.0,
+      "text": "Thanks everyone, see you next week!"
+    }
+  ]
+}
